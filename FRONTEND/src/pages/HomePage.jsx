@@ -20,7 +20,7 @@ export default function HomePage() {
             </Link>
             <Link
               to="/login"
-              className="border border-primary text-primary px-8 py-3 rounded-lg font-medium hover:bg-primary"
+              className="border border-primary text-primary px-8 py-3 rounded-lg font-medium hover:bg-primary/10 transition"
             >
               Sign In
             </Link>
@@ -91,8 +91,7 @@ export default function HomePage() {
           </p>
           <Link
             to="/register"
-            className="inline-block bg-primary text-white px-8 py-3 rounded-lg font-medium hover:bg-primary
-          >
+            className="inline-block bg-primary text-white px-8 py-3 rounded-lg font-medium hover:bg-primary">
             Create Your Account
           </Link>
         </div>
