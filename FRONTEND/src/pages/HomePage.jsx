@@ -14,7 +14,7 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/register"
-              className="bg-primary text-white px-8 py-3 rounded-lg font-medium hover:bg-primary/90 transition"
+              className="bg-primary text-white px-8 py-3 rounded-lg font-medium hover:bg-primary/10 transition"
             >
               Get Started
             </Link>
@@ -91,7 +91,7 @@ export default function HomePage() {
           </p>
           <Link
             to="/register"
-            className="inline-block bg-primary text-white px-8 py-3 rounded-lg font-medium hover:bg-primary/90 transition"
+            className="inline-block bg-primary text-white px-8 py-3 rounded-lg font-medium hover:bg-primary/10 transition"
           >
             Create Your Account
           </Link>
