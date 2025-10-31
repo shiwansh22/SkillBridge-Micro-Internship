@@ -81,17 +81,16 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* Colors defined in RGB format to allow for transparency (rgba) */
-  --color-background: 255, 255, 255; 
-  --color-foreground: 26, 26, 26;
-  --color-card: 249, 249, 249;     
-  --color-muted: 240, 240, 240;
-  --color-muted-foreground: 102, 102, 102;
-  --color-border: 229, 229, 229;   
-  --color-primary: 37, 99, 235;
-  --color-primary-foreground: 255, 255, 255;
-  --color-secondary: 100, 116, 139;
-  --color-accent: 6, 182, 212;
+  --color-background: #ffffff;
+  --color-foreground: #1a1a1a;
+  --color-card: #f9f9f9;
+  --color-muted: #f0f0f0;
+  --color-muted-foreground: #666666;
+  --color-border: #e5e5e5;
+  --color-primary: aquamarine;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #64748b;
+  --color-accent: #06b6d4;
 }
 
 @layer base {
