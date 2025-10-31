@@ -10,6 +10,7 @@ D:\project2210\SkillBridge-Micro-Internship\SkillBridgeBackend\src\main\java\com
 D:\project2210\SkillBridge-Micro-Internship\SkillBridgeBackend\src\main\java\com\example\model\Submission.java
 D:\project2210\SkillBridge-Micro-Internship\SkillBridgeBackend\src\main\java\com\example\repository\SubmissionRepository.java
 D:\project2210\SkillBridge-Micro-Internship\SkillBridgeBackend\src\main\java\com\example\controller\SubmissionController.java
+D:\project2210\SkillBridge-Micro-Internship\SkillBridgeBackend\src\main\java\com\example\config\WebConfig.java
 D:\project2210\SkillBridge-Micro-Internship\SkillBridgeBackend\src\main\java\com\example\controller\CertificateController.java
 D:\project2210\SkillBridge-Micro-Internship\SkillBridgeBackend\src\main\java\com\example\repository\UserRepository.java
 D:\project2210\SkillBridge-Micro-Internship\SkillBridgeBackend\src\main\java\com\example\model\User.java

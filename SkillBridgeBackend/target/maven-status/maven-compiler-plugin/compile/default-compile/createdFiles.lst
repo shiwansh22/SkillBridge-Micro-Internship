@@ -1,4 +1,5 @@
 com\example\repository\ApplicationRepository.class
+com\example\config\WebConfig.class
 com\example\controller\UserController.class
 com\example\model\Application$Status.class
 com\example\SkillBridgeBackendApplication.class
