@@ -6,9 +6,9 @@
   "routes": [
     { "src": "/(.*)", "dest": "/dist/index.html" }
   ],
+  "buildCommand": "chmod +x node_modules/.bin/vite && npm install && npm run build",
+  "outputDirectory": "dist",
   "env": {
     "VITE_API_BASE_URL": "https://skillbridge-micro-internship-production.up.railway.app"
-  },
-  "buildCommand": "npm install && npm run build",
-  "outputDirectory": "dist"
+  }
 }
