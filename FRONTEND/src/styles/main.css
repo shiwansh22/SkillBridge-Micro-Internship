@@ -119,43 +119,43 @@
 }
 
 @layer utilities {
-  .bg-background {
-    @apply bg-[rgb(var(--color-background))];
-  }
+  .bg-background {
+    background-color: rgb(var(--color-background));
+  }
 
-  .text-foreground {
-    @apply text-[rgb(var(--color-foreground))];
-  }
+  .text-foreground {
+    color: rgb(var(--color-foreground));
+  }
 
-  .bg-card {
-    @apply bg-[rgb(var(--color-card))]; 
-  }
+  .bg-card {
+    background-color: rgb(var(--color-card));
+  }
 
-  .bg-muted {
-    @apply bg-[rgb(var(--color-muted))];
-  }
+  .bg-muted {
+    background-color: rgb(var(--color-muted));
+  }
 
-  .text-muted-foreground {
-    @apply text-[rgb(var(--color-muted-foreground))];
-  }
+  .text-muted-foreground {
+    color: rgb(var(--color-muted-foreground));
+  }
 
-  .border-border {
-    @apply border-[rgb(var(--color-border))];
-  }
+  .border-border {
+    border-color: rgb(var(--color-border));
+  }
 
-  .bg-primary {
-    @apply bg-[rgb(var(--color-primary))];
-  }
+  .bg-primary {
+    background-color: rgb(var(--color-primary));
+  }
 
-  .text-primary {
-    @apply text-[rgb(var(--color-primary))];
-  }
+  .text-primary {
+    color: rgb(var(--color-primary));
+  }
 
-  .bg-accent {
-    @apply bg-[rgb(var(--color-accent))];
-  }
+  .bg-accent {
+    background-color: rgb(var(--color-accent));
+  }
 
-  .text-accent {
-    @apply text-[rgb(var(--color-accent))];
-  }
+  .text-accent {
+    color: rgb(var(--color-accent));
+  }
 }
