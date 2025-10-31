@@ -155,9 +155,6 @@ export default function Navbar() {
   }
 
   return (
-    // --------------------------------------------------------------------------------------
-    // ⚠️ UPDATED: Added 'bg-card/90' for transparency and 'backdrop-blur-md' for the glass effect.
-    // --------------------------------------------------------------------------------------
     <nav className="bg-card/90 border-b border-border sticky top-0 z-50 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
@@ -173,12 +170,12 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-8">
             {!user ? (
               <>
-                <Link to="/login" className="text-foreground hover:text-primary transition">
+                <Link to="/login" className="text-foreground hover:text-primary/90 transition">
                   Login
                 </Link>
                 <Link
                   to="/register"
-                  className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition"
+                  className="bg-primary text-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition"
                 >
                   Sign Up
                 </Link>
