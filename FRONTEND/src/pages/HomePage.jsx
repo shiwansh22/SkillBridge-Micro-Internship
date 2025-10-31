@@ -99,7 +99,6 @@
 //     </div>
 //   )
 // }
-
 import { Link } from "react-router-dom"
 
 export default function HomePage() {
@@ -115,27 +114,43 @@ export default function HomePage() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            {/* Get Started Button */}
+            {/* Get Started (Primary Button) */}
             <Link
               to="/register"
-              className="bg-primary text-white px-8 py-3 rounded-lg font-medium shadow-sm hover:shadow-md hover:bg-primary/80 transition-all duration-200"
+              className="px-8 py-3 rounded-lg font-medium 
+                         bg-primary text-white
+                         shadow-sm hover:shadow-md 
+                         hover:brightness-95 transition-all duration-200"
             >
               Get Started
             </Link>
 
-            {/* Sign In Button */}
+            {/* Sign Up (Beside Log In) */}
+            <Link
+              to="/signup"
+              className="px-8 py-3 rounded-lg font-medium 
+                         bg-primary text-white
+                         shadow-sm hover:shadow-md 
+                         hover:brightness-95 transition-all duration-200"
+            >
+              Sign Up
+            </Link>
+
+            {/* Log In (Outline Button) */}
             <Link
               to="/login"
-              className="bg-white dark:bg-zinc-900 border border-primary px-8 py-3 rounded-lg font-medium shadow-sm hover:shadow-md transition-all duration-200 text-black dark:text-white"
+              className="border border-primary text-primary 
+                         px-8 py-3 rounded-lg font-medium 
+                         hover:bg-primary/10 transition-all duration-200"
             >
-              Sign In
+              Log In
             </Link>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="px-4 py-16 bg-muted/50">
+      <section className="px-4 py-16 bg-muted">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">Why SkillBridge?</h2>
           <div className="grid md:grid-cols-3 gap-8">
@@ -167,7 +182,8 @@ export default function HomePage() {
           </p>
           <Link
             to="/register"
-            className="inline-block bg-primary text-white px-8 py-3 rounded-lg font-medium shadow-sm hover:shadow-md hover:bg-primary/80 transition-all duration-200"
+            className="inline-block bg-primary text-white px-8 py-3 rounded-lg font-medium 
+                       shadow-sm hover:shadow-md hover:brightness-95 transition-all duration-200"
           >
             Create Your Account
           </Link>
