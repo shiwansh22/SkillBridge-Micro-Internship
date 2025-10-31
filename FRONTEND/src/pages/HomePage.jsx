@@ -14,13 +14,13 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/register"
-              className="bg-primary text-white px-8 py-3 rounded-lg font-medium hover:bg-primary/10 transition"
+              className="bg-primary text-white px-8 py-3 rounded-lg font-medium hover:bg-primary"
             >
               Get Started
             </Link>
             <Link
               to="/login"
-              className="border border-primary text-primary px-8 py-3 rounded-lg font-medium hover:bg-primary/10 transition"
+              className="border border-primary text-primary px-8 py-3 rounded-lg font-medium hover:bg-primary"
             >
               Sign In
             </Link>
@@ -75,7 +75,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-lg font-semibold mb-2">Fair Compensation</h3>
               <p className="text-muted-foreground">
-                Get paid fairly for your work and build your professional network.
+                Get Certificate for your work and build your professional network.
               </p>
             </div>
           </div>
@@ -87,11 +87,11 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-6">Ready to Start?</h2>
           <p className="text-lg text-muted-foreground mb-8">
-            Join thousands of students and recruiters already using SkillBridge.
+            Join SkillBridge.
           </p>
           <Link
             to="/register"
-            className="inline-block bg-primary text-white px-8 py-3 rounded-lg font-medium hover:bg-primary/10 transition"
+            className="inline-block bg-primary text-white px-8 py-3 rounded-lg font-medium hover:bg-primary
           >
             Create Your Account
           </Link>
