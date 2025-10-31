@@ -113,6 +113,7 @@ export default function HomePage() {
             SkillBridge connects students with recruiters for meaningful micro-internships. Build your portfolio, earn
             certificates, and launch your career.
           </p>
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             {/* Get Started Button */}
             <Link
@@ -125,7 +126,7 @@ export default function HomePage() {
             {/* Sign In Button */}
             <Link
               to="/login"
-              className="border border-primary text-primary px-8 py-3 rounded-lg font-medium hover:bg-primary/5 hover:text-primary transition-all duration-200"
+              className="bg-white dark:bg-zinc-900 border border-primary px-8 py-3 rounded-lg font-medium shadow-sm hover:shadow-md transition-all duration-200 text-black dark:text-white"
             >
               Sign In
             </Link>
