@@ -1,14 +1,14 @@
 {
-  "buildCommand": "cd FRONTEND && npm install && npm run build",
-  "outputDirectory": "FRONTEND/dist",
-  "framework": "vite",
+  "version": 2,
+  "builds": [
+    { "src": "package.json", "use": "@vercel/static-build" }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/dist/index.html" }
+  ],
   "env": {
     "VITE_API_BASE_URL": "https://skillbridge-micro-internship-production.up.railway.app"
   },
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/FRONTEND/dist/index.html"
-    }
-  ]
+  "buildCommand": "npm install && npm run build",
+  "outputDirectory": "dist"
 }
