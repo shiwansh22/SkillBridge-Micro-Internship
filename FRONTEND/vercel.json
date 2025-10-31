@@ -1,0 +1,8 @@
+{
+  "builds": [
+    { "src": "FRONTEND/package.json", "use": "@vercel/static-build" }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/FRONTEND/dist/$1" }
+  ]
+}
