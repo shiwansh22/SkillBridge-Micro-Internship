@@ -1,16 +1,16 @@
 import axios from "axios"
 
-// Use Vite environment variable (fallback to localhost for local dev)
+// Base URL setup
 const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080"
 
 const api = axios.create({
-  baseURL: `${API_BASE}/api`,
+  baseURL: API_BASE,
   headers: {
     "Content-Type": "application/json",
   },
 })
 
-// Add token to requests
+// Add token if exists
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token")
@@ -19,10 +19,10 @@ api.interceptors.request.use(
     }
     return config
   },
-  (error) => Promise.reject(error),
+  (error) => Promise.reject(error)
 )
 
-// Handle responses
+// Handle 401 Unauthorized globally
 api.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -32,7 +32,7 @@ api.interceptors.response.use(
       window.location.href = "/login"
     }
     return Promise.reject(error)
-  },
+  }
 )
 
 export default api
