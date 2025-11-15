@@ -3,6 +3,4 @@
 
 # Ignore Node.js dependencies
 /FRONTEND/node_modules/
-repo-clean.git/
 
-repo-mirror.git/
