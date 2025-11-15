@@ -212,23 +212,17 @@ export default function Navbar() {
             )}
             <ThemeToggle />
           </div>
-
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center gap-4">
             <ThemeToggle />
             <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-foreground">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLineJoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
-        {/* ---------------------------------------------------------------------------------------------------------------------
-            💡 NOTE: You might also want to apply the glassmorphism effect to the mobile menu overlay here as well!
-            I've added the updated classes to the mobile menu too for consistency.
-            --------------------------------------------------------------------------------------------------------------------- */}
         {mobileMenuOpen && (
           <div className="md:hidden pb-4 space-y-2 bg-card/90 backdrop-blur-sm border-t border-border">
             {!user ? (
@@ -247,9 +241,9 @@ export default function Navbar() {
                     <Link to="/student/dashboard" className="block px-4 py-2 text-foreground hover:bg-muted rounded">
                       Dashboard
                     </Link>
-                    <Link to="/profile" className="block px-4 py-2 text-foreground hover:bg-muted rounded">
+                    {/* <Link to="/profile" className="block px-4 py-2 text-foreground hover:bg-muted rounded">
                       Certificates
-                    </Link>
+                    </Link> */}
                   </>
                 )}
                 {user.role === "recruiter" && (

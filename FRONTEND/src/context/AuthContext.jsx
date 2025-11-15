@@ -1,82 +1,246 @@
-"use client"
+// "use client"
 
-import { createContext, useState, useContext, useEffect } from "react"
-import api from "../api/axios"
+// import { createContext, useState, useContext, useEffect } from "react"
+// import api from "../api/axios"
 
-const AuthContext = createContext()
+// const AuthContext = createContext()
+
+// export function AuthProvider({ children }) {
+//   const [user, setUser] = useState(null)
+//   const [loading, setLoading] = useState(true)
+//   const [error, setError] = useState(null)
+
+//   // Check if user is already logged in on mount
+//   useEffect(() => {
+//     const token = localStorage.getItem("token")
+//     const userData = localStorage.getItem("user")
+
+//     if (token && userData) {
+//       setUser(JSON.parse(userData))
+//       api.defaults.headers.common["Authorization"] = `Bearer ${token}`
+//     }
+
+//     setLoading(false)
+//   }, [])
+
+//   const login = async (email, password, role) => {
+//     try {
+//       setError(null)
+//       const response = await api.post("/users/login", { email, password, role })
+//       const { token, user: userData } = response.data
+
+//       localStorage.setItem("token", token)
+//       localStorage.setItem("user", JSON.stringify(userData))
+//       api.defaults.headers.common["Authorization"] = `Bearer ${token}`
+
+//       setUser(userData)
+//       return userData
+//     } catch (err) {
+//       const message = err.response?.data?.message || "Login failed"
+//       setError(message)
+//       throw new Error(message)
+//     }
+//   }
+
+//   const register = async (email, password, name, role) => {
+//     try {
+//       setError(null)
+//       const response = await api.post("/users/register", { email, password, name, role })
+//       const { token, user: userData } = response.data
+
+//       localStorage.setItem("token", token)
+//       localStorage.setItem("user", JSON.stringify(userData))
+//       api.defaults.headers.common["Authorization"] = `Bearer ${token}`
+
+//       setUser(userData)
+//       return userData
+//     } catch (err) {
+//       const message = err.response?.data?.message || "Registration failed"
+//       setError(message)
+//       throw new Error(message)
+//     }
+//   }
+
+//   const logout = () => {
+//     localStorage.removeItem("token")
+//     localStorage.removeItem("user")
+//     delete api.defaults.headers.common["Authorization"]
+//     setUser(null)
+//   }
+
+//   return (
+//     <AuthContext.Provider value={{ user, loading, error, login, register, logout }}>{children}</AuthContext.Provider>
+//   )
+// }
+
+// export function useAuth() {
+//   const context = useContext(AuthContext)
+//   if (!context) {
+//     throw new Error("useAuth must be used within AuthProvider")
+//   }
+//   return context
+// }
+
+// src/context/AuthContext.jsx
+"use client";
+
+import React, { createContext, useState, useContext, useEffect } from "react";
+import api from "../api/axios";
+
+const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Check if user is already logged in on mount
   useEffect(() => {
-    const token = localStorage.getItem("token")
-    const userData = localStorage.getItem("user")
-
-    if (token && userData) {
-      setUser(JSON.parse(userData))
-      api.defaults.headers.common["Authorization"] = `Bearer ${token}`
+    try {
+      const token = localStorage.getItem("token");
+      const userData = localStorage.getItem("user");
+      if (token && token !== "undefined") {
+        api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        if (userData) setUser(JSON.parse(userData));
+      } else if (userData) {
+        // If there's a user stored but no token, still restore the user (session style)
+        setUser(JSON.parse(userData));
+      } else {
+        setUser(null);
+      }
+    } catch (e) {
+      setUser(null);
+    } finally {
+      setLoading(false);
     }
+  }, []);
 
-    setLoading(false)
-  }, [])
-
+  // Login tolerant to token-less responses
   const login = async (email, password, role) => {
     try {
-      setError(null)
-      const response = await api.post("/users/login", { email, password, role })
-      const { token, user: userData } = response.data
+      setError(null);
+      const response = await api.post("/users/login", { email, password, role });
 
-      localStorage.setItem("token", token)
-      localStorage.setItem("user", JSON.stringify(userData))
-      api.defaults.headers.common["Authorization"] = `Bearer ${token}`
+      console.log("LOGIN RESPONSE:", response.data);
 
-      setUser(userData)
-      return userData
+      // Try common token keys
+      const token =
+        response.data?.token ||
+        response.data?.accessToken ||
+        response.data?.jwt ||
+        response.data?.data?.token ||
+        response.data?.data?.accessToken ||
+        null;
+
+      // Try common user keys
+      const userData =
+        response.data?.user ||
+        response.data?.userData ||
+        response.data?.data?.user ||
+        response.data ||
+        null; // sometimes backend returns the user object directly
+
+      // If there's a token, persist it.
+      if (token) {
+        localStorage.setItem("token", token);
+        api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      } else {
+        // No token — remove any existing token and continue with user-only flow
+        localStorage.removeItem("token");
+        delete api.defaults.headers.common["Authorization"];
+      }
+
+      // If backend returned a user object, persist it and set state
+      if (userData) {
+        // If the response is wrapped in { success: true, data: { ... } }
+        const resolvedUser = userData?.data ? userData.data : userData;
+        localStorage.setItem("user", JSON.stringify(resolvedUser));
+        setUser(resolvedUser);
+        return resolvedUser;
+      }
+
+      // If neither token nor user present, throw a helpful error
+      if (!token && !userData) {
+        const msg = "Login succeeded but server didn't return token or user. Check backend response.";
+        setError(msg);
+        throw new Error(msg);
+      }
+
+      return null;
     } catch (err) {
-      const message = err.response?.data?.message || "Login failed"
-      setError(message)
-      throw new Error(message)
+      const message = err.response?.data?.message || err.message || "Login failed";
+      setError(message);
+      throw new Error(message);
     }
-  }
+  };
 
   const register = async (email, password, name, role) => {
     try {
-      setError(null)
-      const response = await api.post("/users/register", { email, password, name, role })
-      const { token, user: userData } = response.data
+      setError(null);
+      const response = await api.post("/users/register", { email, password, name, role });
 
-      localStorage.setItem("token", token)
-      localStorage.setItem("user", JSON.stringify(userData))
-      api.defaults.headers.common["Authorization"] = `Bearer ${token}`
+      console.log("REGISTER RESPONSE:", response.data);
 
-      setUser(userData)
-      return userData
+      const token =
+        response.data?.token ||
+        response.data?.accessToken ||
+        response.data?.jwt ||
+        response.data?.data?.token ||
+        null;
+
+      const userData =
+        response.data?.user ||
+        response.data?.userData ||
+        response.data?.data?.user ||
+        response.data ||
+        null;
+
+      if (token) {
+        localStorage.setItem("token", token);
+        api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      } else {
+        localStorage.removeItem("token");
+        delete api.defaults.headers.common["Authorization"];
+      }
+
+      if (userData) {
+        const resolvedUser = userData?.data ? userData.data : userData;
+        localStorage.setItem("user", JSON.stringify(resolvedUser));
+        setUser(resolvedUser);
+        return resolvedUser;
+      }
+
+      if (!token && !userData) {
+        const msg = "Registration succeeded but server didn't return token or user.";
+        setError(msg);
+        throw new Error(msg);
+      }
+
+      return null;
     } catch (err) {
-      const message = err.response?.data?.message || "Registration failed"
-      setError(message)
-      throw new Error(message)
+      const message = err.response?.data?.message || err.message || "Registration failed";
+      setError(message);
+      throw new Error(message);
     }
-  }
+  };
 
   const logout = () => {
-    localStorage.removeItem("token")
-    localStorage.removeItem("user")
-    delete api.defaults.headers.common["Authorization"]
-    setUser(null)
-  }
+    try {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+    } catch (e) {}
+    delete api.defaults.headers.common["Authorization"];
+    setUser(null);
+  };
 
   return (
-    <AuthContext.Provider value={{ user, loading, error, login, register, logout }}>{children}</AuthContext.Provider>
-  )
+    <AuthContext.Provider value={{ user, loading, error, login, register, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export function useAuth() {
-  const context = useContext(AuthContext)
-  if (!context) {
-    throw new Error("useAuth must be used within AuthProvider")
-  }
-  return context
+  const context = useContext(AuthContext);
+  if (!context) throw new Error("useAuth must be used within AuthProvider");
+  return context;
 }
