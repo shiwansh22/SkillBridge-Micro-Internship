@@ -1,66 +1,38 @@
-// import axios from "axios";
+import axios from "axios"
 
-// const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080"; 
-
-// const api = axios.create({
-//   baseURL: `${API_BASE}/api`,
-//   headers: { "Content-Type": "application/json" },
-
-// });
-
-// // attach token if present
-// api.interceptors.request.use((config) => {
-//   try {
-//     const token = localStorage.getItem("token");
-//     if (token && token !== "undefined") {
-//       config.headers = config.headers || {};
-//       config.headers.Authorization = `Bearer ${token}`;
-//     }
-//   } catch (e) {}
-//   return config;
-// });
-
-// // gentle error handler (don't hard-redirect while debugging)
-// api.interceptors.response.use(
-//   (response) => response,
-//   (error) => {
-//     console.error("API ERROR:", error?.config?.url, error?.response?.status, error?.response?.data);
-//     return Promise.reject(error);
-//   }
-// );
-
-// export default api;
-
-
-
-// src/lib/axios.js
-import axios from "axios";
-
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
+// Base URL setup
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080"
 
 const api = axios.create({
-  baseURL: `${API_BASE}/api`,
-  headers: { "Content-Type": "application/json" },
-  // withCredentials: true // enable only if you use cookie sessions
-});
+  baseURL: API_BASE,
+  headers: {
+    "Content-Type": "application/json",
+  },
+})
 
-api.interceptors.request.use((config) => {
-  try {
-    const token = localStorage.getItem("token");
-    if (token && token !== "undefined") {
-      config.headers = config.headers || {};
-      config.headers.Authorization = `Bearer ${token}`;
+// Add token if exists
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token")
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
     }
-  } catch (e) {}
-  return config;
-});
+    return config
+  },
+  (error) => Promise.reject(error)
+)
 
+// Handle 401 Unauthorized globally
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.error("API ERROR:", error?.config?.url, error?.response?.status, error?.response?.data);
-    return Promise.reject(error);
+    if (error.response?.status === 401) {
+      localStorage.removeItem("token")
+      localStorage.removeItem("user")
+      window.location.href = "/login"
+    }
+    return Promise.reject(error)
   }
-);
+)
 
-export default api;
+export default api
