@@ -1,8 +1,8 @@
+# Ignore compiled output and build directories
+/SkillBridgeBackend/target/
 
-# Ignore backend build
-SkillBridgeBackend/target/
+# Ignore Node.js dependencies
+/FRONTEND/node_modules/
+repo-clean.git/
 
-# Ignore frontend node_modules
-FRONTEND/node_modules/
-
-node_modules/
+repo-mirror.git/
