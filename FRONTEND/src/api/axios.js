@@ -1,38 +1,79 @@
-import axios from "axios"
+// import axios from "axios"
 
-// Base URL setup
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080"
+// // Base URL setup
+// const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080/api"
+
+// const api = axios.create({
+//   baseURL: API_BASE,
+//   headers: {
+//     "Content-Type": "application/json",
+//   },
+// })
+
+// // Add token if exists
+// api.interceptors.request.use(
+//   (config) => {
+//     const token = localStorage.getItem("token")
+//     if (token) {
+//       config.headers.Authorization = `Bearer ${token}`
+//     }
+//     return config
+//   },
+//   (error) => Promise.reject(error)
+// )
+
+// // Handle 401 Unauthorized globally
+// api.interceptors.response.use(
+//   (response) => response,
+//   (error) => {
+//     if (error.response?.status === 401) {
+//       localStorage.removeItem("token")
+//       localStorage.removeItem("user")
+//       window.location.href = "/login"
+//     }
+//     return Promise.reject(error)
+//   }
+// )
+
+// export default api
+
+// src/api/axios.js
+import axios from "axios";
+
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080/api";
 
 const api = axios.create({
   baseURL: API_BASE,
   headers: {
     "Content-Type": "application/json",
   },
-})
+});
+
+console.log("API baseURL:", api.defaults.baseURL); // -> verify in browser console
 
 // Add token if exists
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem("token");
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`
+      config.headers.Authorization = `Bearer ${token}`;
     }
-    return config
+    return config;
   },
   (error) => Promise.reject(error)
-)
+);
 
-// Handle 401 Unauthorized globally
+// Handle 401 globally
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem("token")
-      localStorage.removeItem("user")
-      window.location.href = "/login"
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      window.location.href = "/login";
     }
-    return Promise.reject(error)
+    return Promise.reject(error);
   }
-)
+);
 
-export default api
+export default api;
