@@ -1,0 +1,8 @@
+
+# Ignore backend build
+SkillBridgeBackend/target/
+
+# Ignore frontend node_modules
+FRONTEND/node_modules/
+
+node_modules/
